@@ -69,6 +69,7 @@ public class ShatteredPixelDungeon extends Game {
 
 		Sample.INSTANCE.load( Assets.Sounds.all );
 		
+		Registry.registerAll();
 	}
 
 	@Override

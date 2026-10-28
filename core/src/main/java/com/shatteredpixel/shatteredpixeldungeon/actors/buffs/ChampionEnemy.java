@@ -106,7 +106,7 @@ public abstract class ChampionEnemy extends Buff {
 			case 5:             buffCls = Growing.class;      break;
 		}
 
-		if (Dungeon.mobsToChampion <= 0 && Dungeon.isChallenged(Challenges.CHAMPION_ENEMIES)) {
+		if (Dungeon.mobsToChampion <= 0 && Dungeon.isChallenged(Challenges.findChallenge("CHAMPION_ENEMIES"))) {
 
 			//we block certain standout enemies on floor <10 from becoming champions
 			if (m instanceof Crab  && Dungeon.scalingDepth() <= 3) return;

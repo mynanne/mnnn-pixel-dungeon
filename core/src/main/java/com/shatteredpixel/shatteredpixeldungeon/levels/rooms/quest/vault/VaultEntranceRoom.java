@@ -115,7 +115,7 @@ public class VaultEntranceRoom extends VaultRoom {
 			ofs = level.width();
 		}
 
-		boolean addTorch = Dungeon.isChallenged(Challenges.DARKNESS);
+		boolean addTorch = Dungeon.isChallenged(Challenges.findChallenge("DARKNESS"));
 		switch (Random.Int(3)){
 			case 0:
 				if (addTorch) level.drop(new Torch(), level.pointToCell(furthest)-ofs);

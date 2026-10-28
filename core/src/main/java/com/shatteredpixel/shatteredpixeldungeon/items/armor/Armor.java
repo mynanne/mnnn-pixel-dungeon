@@ -377,7 +377,7 @@ public class Armor extends EquipableItem {
 	}
 
 	public int DRMax(int lvl){
-		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
+		if (Dungeon.isChallenged(Challenges.findChallenge("NO_ARMOR"))){
 			return 1 + tier + lvl + augment.defenseFactor(lvl);
 		}
 
@@ -394,7 +394,7 @@ public class Armor extends EquipableItem {
 	}
 
 	public int DRMin(int lvl){
-		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
+		if (Dungeon.isChallenged(Challenges.findChallenge("NO_ARMOR"))){
 			return 0;
 		}
 

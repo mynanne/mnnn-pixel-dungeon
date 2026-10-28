@@ -470,7 +470,7 @@ public abstract class RegularLevel extends Level {
 		//we can use a random long for these as they will be the same longs every time
 
 		Random.pushGenerator( Random.Long() );
-			if (Dungeon.isChallenged(Challenges.DARKNESS)){
+			if (Dungeon.isChallenged(Challenges.findChallenge("DARKNESS"))){
 				int cell = randomDropCell();
 				if (map[cell] == Terrain.HIGH_GRASS || map[cell] == Terrain.FURROWED_GRASS) {
 					map[cell] = Terrain.GRASS;

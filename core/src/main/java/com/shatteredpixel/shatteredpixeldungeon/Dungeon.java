@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
+import com.shatteredpixel.shatteredpixeldungeon.Challenges.Challenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
@@ -179,7 +180,7 @@ public class Dungeon {
 
 	}
 
-	public static int challenges;
+	public static ArrayList<Challenge> challenges;
 	public static float mobsToChampion;
 
 	public static Hero hero;
@@ -286,8 +287,8 @@ public class Dungeon {
 		GamesInProgress.selectedClass.initHero( hero );
 	}
 
-	public static boolean isChallenged( int mask ) {
-		return (challenges & mask) != 0;
+	public static boolean isChallenged( Challenge challengeId ) {
+		return challenges.contains(challengeId);
 	}
 
 	public static boolean levelHasBeenGenerated(int depth, int branch){
@@ -605,7 +606,7 @@ public class Dungeon {
 	private static final String DAILY	    = "daily";
 	private static final String DAILY_REPLAY= "daily_replay";
 	private static final String LAST_PLAYED = "last_played";
-	private static final String CHALLENGES	= "challenges";
+	private static final String CHALLENGES	= "challenges_";
 	private static final String MOBS_TO_CHAMPION	= "mobs_to_champion";
 	private static final String HERO		= "hero";
 	private static final String DEPTH		= "depth";
@@ -632,7 +633,11 @@ public class Dungeon {
 			bundle.put( DAILY, daily );
 			bundle.put( DAILY_REPLAY, dailyReplay );
 			bundle.put( LAST_PLAYED, lastPlayed = Game.realTime);
-			bundle.put( CHALLENGES, challenges );
+
+			for (Challenge challenge : challenges) {
+				bundle.put(CHALLENGES + challenge.getId(), true);
+			}
+
 			bundle.put( MOBS_TO_CHAMPION, mobsToChampion );
 			bundle.put( HERO, hero );
 			bundle.put( DEPTH, depth );
@@ -739,7 +744,12 @@ public class Dungeon {
 		QuickSlotButton.reset();
 		Toolbar.swappedQuickslots = false;
 
-		Dungeon.challenges = bundle.getInt( CHALLENGES );
+		for (Challenge ch : Challenges.challenges) {
+			if (bundle.getBoolean(CHALLENGES + ch.getId())) {
+				Dungeon.challenges.add(ch);
+			}
+		}
+
 		Dungeon.mobsToChampion = bundle.getFloat( MOBS_TO_CHAMPION );
 		
 		Dungeon.level = null;
@@ -858,7 +868,13 @@ public class Dungeon {
 	public static void preview( GamesInProgress.Info info, Bundle bundle ) {
 		info.depth = bundle.getInt( DEPTH );
 		info.version = bundle.getInt( VERSION );
-		info.challenges = bundle.getInt( CHALLENGES );
+
+		for (Challenge ch : Challenges.challenges) {
+			if (bundle.getBoolean(CHALLENGES + ch.getId())) {
+				info.challenges.add(ch);
+			}
+		}
+
 		info.seed = bundle.getLong( SEED );
 		info.customSeed = bundle.getString( CUSTOM_SEED );
 		info.daily = bundle.getBoolean( DAILY );

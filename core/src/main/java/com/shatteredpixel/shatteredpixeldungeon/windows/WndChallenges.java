@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges.Challenge;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -33,6 +34,8 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class WndChallenges extends Window {
 
@@ -44,7 +47,7 @@ public class WndChallenges extends Window {
 	private boolean editable;
 	private ArrayList<CheckBox> boxes;
 
-	public WndChallenges( int checked, boolean editable ) {
+	public WndChallenges( ArrayList<Challenge> checked, boolean editable ) {
 
 		super();
 
@@ -62,12 +65,11 @@ public class WndChallenges extends Window {
 		boxes = new ArrayList<>();
 
 		float pos = TTL_HEIGHT;
-		for (int i=0; i < Challenges.NAME_IDS.length; i++) {
-
-			final String challenge = Challenges.NAME_IDS[i];
-			
-			CheckBox cb = new CheckBox( Messages.titleCase(Messages.get(Challenges.class, challenge)) );
-			cb.checked( (checked & Challenges.MASKS[i]) != 0 );
+		for (int i = 0; i < Challenges.challenges.size(); i++) {
+			Challenge challenge = Challenges.challenges.get(i);
+						
+			CheckBox cb = new CheckBox( Messages.titleCase(Messages.get(Challenges.class, challenge.getId())) );
+			cb.checked( checked.contains(challenge) );
 			cb.active = editable;
 
 			if (i > 0) {
@@ -83,7 +85,7 @@ public class WndChallenges extends Window {
 				protected void onClick() {
 					super.onClick();
 					ShatteredPixelDungeon.scene().add(
-							new WndMessage(Messages.get(Challenges.class, challenge+"_desc"))
+							new WndMessage(Messages.get(Challenges.class, challenge.getId()+"_desc"))
 					);
 				}
 			};
@@ -100,10 +102,10 @@ public class WndChallenges extends Window {
 	public void onBackPressed() {
 
 		if (editable) {
-			int value = 0;
+			Set<Integer> value = new HashSet<>();
 			for (int i=0; i < boxes.size(); i++) {
 				if (boxes.get( i ).checked()) {
-					value |= Challenges.MASKS[i];
+					value.add(i);
 				}
 			}
 			SPDSettings.challenges( value );

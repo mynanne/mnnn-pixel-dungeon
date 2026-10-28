@@ -155,7 +155,7 @@ public abstract class Level implements Bundlable {
 	public boolean[] mapped;
 	public boolean[] discoverable;
 
-	public int viewDistance = Dungeon.isChallenged( Challenges.DARKNESS ) ? 2 : 8;
+	public int viewDistance = Dungeon.isChallenged( Challenges.findChallenge("DARKNESS") ) ? 2 : 8;
 	
 	public boolean[] heroFOV;
 	
@@ -235,7 +235,7 @@ public abstract class Level implements Bundlable {
 				//TODO while this does significantly reduce this challenge's levelgen impact, it doesn't quite remove it
 				//for 0 levelgen impact, we need to do something like give the player all SOU, but nerf them
 				//or give a random scroll (from a separate RNG) instead of every 2nd SOU
-				if (!Dungeon.isChallenged(Challenges.NO_SCROLLS) || Dungeon.LimitedDrops.UPGRADE_SCROLLS.count%2 != 0){
+				if (!Dungeon.isChallenged(Challenges.findChallenge("NO_SCROLLS")) || Dungeon.LimitedDrops.UPGRADE_SCROLLS.count%2 != 0){
 					addItemToSpawn(new ScrollOfUpgrade());
 				}
 			}
@@ -1065,7 +1065,7 @@ public abstract class Level implements Bundlable {
 		}
 
 		//we have to get this far as grass placement has RNG implications in levelgen
-		if (Dungeon.isChallenged(Challenges.NO_HERBALISM)){
+		if (Dungeon.isChallenged(Challenges.findChallenge("NO_HERBALISM"))){
 			return null;
 		}
 		

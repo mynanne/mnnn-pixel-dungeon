@@ -21,56 +21,41 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
+import java.util.ArrayList;
+
 import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 
+// import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
+// import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+
 public class Challenges {
+	static abstract public class Challenge {
+		private String id;
+		private String name;
 
-	//Some of these internal IDs are outdated and don't represent what these challenges do
-	public static final int NO_FOOD				= 1;
-	public static final int NO_ARMOR			= 2;
-	public static final int NO_HEALING			= 4;
-	public static final int NO_HERBALISM		= 8;
-	public static final int SWARM_INTELLIGENCE	= 16;
-	public static final int DARKNESS			= 32;
-	public static final int NO_SCROLLS		    = 64;
-	public static final int CHAMPION_ENEMIES	= 128;
-	public static final int STRONGER_BOSSES 	= 256;
+		abstract void apply();
 
-	public static final int MAX_VALUE           = 511;
-	public static final int MAX_CHALS           = 9;
+		public String getId() { return id; }
+		public void setId(String id) { this.id = id; }
 
-	public static final String[] NAME_IDS = {
-			"champion_enemies",
-			"stronger_bosses",
-			"no_food",
-			"no_armor",
-			"no_healing",
-			"no_herbalism",
-			"swarm_intelligence",
-			"darkness",
-			"no_scrolls"
-	};
-
-	public static final int[] MASKS = {
-			CHAMPION_ENEMIES, STRONGER_BOSSES, NO_FOOD, NO_ARMOR, NO_HEALING, NO_HERBALISM, SWARM_INTELLIGENCE, DARKNESS, NO_SCROLLS
-	};
+		public String getName() { return name; }
+		public void setName(String name) { this.name = name; }
+		
+	}
+	static public final ArrayList<Challenge> challenges = new ArrayList<>();
 
 	public static int activeChallenges(){
 		return activeChallenges(Dungeon.challenges);
 	}
 
-	public static int activeChallenges(int mask){
-		int chCount = 0;
-		for (int ch : Challenges.MASKS){
-			if ((mask & ch) != 0) chCount++;
-		}
-		return chCount;
+	public static int activeChallenges(ArrayList<Challenge> values){
+		return values.size();
 	}
 
 	public static boolean isItemBlocked( Item item ){
 
-		if (Dungeon.isChallenged(NO_HERBALISM) && item instanceof Dewdrop){
+		if (Dungeon.isChallenged(findChallenge("NO_HERBALISM")) && item instanceof Dewdrop){
 			return true;
 		}
 
@@ -78,4 +63,13 @@ public class Challenges {
 
 	}
 
+	//@TODO: 나중에 사라져야 할 것
+	static public Challenge findChallenge( String id ) {
+		for (Challenge ch : challenges) {
+			if (ch.getId().equals(id)) {
+				return ch;
+			}
+		}
+		return null;
+	}
 }

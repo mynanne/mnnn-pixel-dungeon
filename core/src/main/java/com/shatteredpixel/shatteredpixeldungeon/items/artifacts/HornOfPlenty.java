@@ -101,7 +101,7 @@ public class HornOfPlenty extends Artifact {
 			else {
 				//consume as much food as it takes to be full, to a minimum of 1
 				int satietyPerCharge = (int) (Hunger.STARVING/5f);
-				if (Dungeon.isChallenged(Challenges.NO_FOOD)){
+				if (Dungeon.isChallenged(Challenges.findChallenge("NO_FOOD"))){
 					satietyPerCharge /= 3;
 				}
 
@@ -126,7 +126,7 @@ public class HornOfPlenty extends Artifact {
 
 	public void doEatEffect(Hero hero, int chargesToUse){
 		int satietyPerCharge = (int) (Hunger.STARVING/5f);
-		if (Dungeon.isChallenged(Challenges.NO_FOOD)){
+		if (Dungeon.isChallenged(Challenges.findChallenge("NO_FOOD"))){
 			satietyPerCharge /= 3;
 		}
 

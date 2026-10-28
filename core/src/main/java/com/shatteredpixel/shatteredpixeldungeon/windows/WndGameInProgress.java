@@ -67,11 +67,11 @@ public class WndGameInProgress extends Window {
 		title.setRect( 0, 0, WIDTH, 0 );
 		add(title);
 		
-		if (info.challenges > 0) GAP -= 2;
+		if (info.challenges != null && !info.challenges.isEmpty()) GAP -= 2;
 		
 		pos = title.bottom() + GAP;
 		
-		if (info.challenges > 0) {
+		if (info.challenges != null && !info.challenges.isEmpty()) {
 			RedButton btnChallenges = new RedButton( Messages.get(this, "challenges") ) {
 				@Override
 				protected void onClick() {

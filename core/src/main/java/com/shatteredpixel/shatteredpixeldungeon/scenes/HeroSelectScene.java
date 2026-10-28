@@ -72,6 +72,7 @@ import com.watabou.utils.RectF;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -234,8 +235,8 @@ public class HeroSelectScene extends PixelScene {
 		}
 
 		if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !DeviceCompat.isDebug()){
-			Dungeon.challenges = 0;
-			SPDSettings.challenges(0);
+			Dungeon.challenges.clear();
+			SPDSettings.challenges(null);
 			SPDSettings.customSeed("");
 		}
 
@@ -404,7 +405,7 @@ public class HeroSelectScene extends PixelScene {
 	private void updateOptionsColor(){
 		if (!SPDSettings.customSeed().isEmpty()){
 			btnOptions.icon().hardlight(1f, 1.5f, 0.67f);
-		} else if (SPDSettings.challenges() != 0){
+		} else if (!SPDSettings.challenges().isEmpty()){
 			btnOptions.icon().hardlight(2f, 1.33f, 0.5f);
 		} else {
 			btnOptions.icon().resetColor();
@@ -810,14 +811,14 @@ public class HeroSelectScene extends PixelScene {
 					ShatteredPixelDungeon.scene().addToFront(new WndChallenges(SPDSettings.challenges(), true) {
 						public void onBackPressed() {
 							super.onBackPressed();
-							icon(Icons.get(SPDSettings.challenges() > 0 ? Icons.CHALLENGE_COLOR : Icons.CHALLENGE_GREY));
+							icon(Icons.get(!SPDSettings.challenges().isEmpty() ? Icons.CHALLENGE_COLOR : Icons.CHALLENGE_GREY));
 							updateOptionsColor();
 						}
 					} );
 				}
 			};
 			challengeButton.leftJustify = true;
-			challengeButton.icon(Icons.get(SPDSettings.challenges() > 0 ? Icons.CHALLENGE_COLOR : Icons.CHALLENGE_GREY));
+			challengeButton.icon(Icons.get(!SPDSettings.challenges().isEmpty() ? Icons.CHALLENGE_COLOR : Icons.CHALLENGE_GREY));
 			add(challengeButton);
 			buttons.add(challengeButton);
 
@@ -888,7 +889,7 @@ public class HeroSelectScene extends PixelScene {
 				chkChals.setRect(0, 20, 120, 16);
 				add(chkChals);
 
-				int max = Challenges.MAX_CHALS;
+				int max = Challenges.challenges.size();
 				optChals = new OptionSlider(Messages.get(HeroSelectScene.class, "randomize_chals_title"), "0", Integer.toString(max), 0, max) {
 					@Override
 					protected void onChange() {
@@ -921,17 +922,17 @@ public class HeroSelectScene extends PixelScene {
 						if (chkChals.checked()){
 							int chals = optChals.getSelectedValue();
 							ArrayList<Integer> chalMasks = new ArrayList<>();
-							for (int i = 0; i < Challenges.MAX_CHALS; i++){
-								chalMasks.add((int)Math.pow(2, i));
+							for (int i = 0; i < Challenges.challenges.size(); i++){
+								chalMasks.add(i);
 							}
 							Random.shuffle(chalMasks);
-							int mask = 0;
+							HashSet<Integer> mask = new HashSet<>();
 							for (int i = 0; i < chals; i++){
-								mask += chalMasks.remove(0);
+								mask.add(chalMasks.remove(0));
 							}
 							SPDSettings.challenges(mask);
-							challengeButton.icon(Icons.get(SPDSettings.challenges() > 0 ? Icons.CHALLENGE_COLOR : Icons.CHALLENGE_GREY));
-							ShatteredPixelDungeon.scene().addToFront(new WndChallenges(mask, false));
+							challengeButton.icon(Icons.get(!SPDSettings.challenges().isEmpty() ? Icons.CHALLENGE_COLOR : Icons.CHALLENGE_GREY));
+							ShatteredPixelDungeon.scene().addToFront(new WndChallenges(SPDSettings.challenges(), false));
 						}
 
 						if (chkHero.checked()){

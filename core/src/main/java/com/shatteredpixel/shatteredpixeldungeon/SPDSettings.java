@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
+import com.shatteredpixel.shatteredpixeldungeon.Challenges.Challenge;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -31,7 +32,9 @@ import com.watabou.utils.DeviceCompat;
 import com.watabou.utils.GameSettings;
 import com.watabou.utils.Point;
 
+import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Set;
 
 public class SPDSettings extends GameSettings {
 	
@@ -219,7 +222,7 @@ public class SPDSettings extends GameSettings {
 	//Game State
 	
 	public static final String KEY_LAST_CLASS	= "last_class";
-	public static final String KEY_CHALLENGES	= "challenges";
+	public static final String KEY_CHALLENGES	= "challenges_";
 	public static final String KEY_CUSTOM_SEED	= "custom_seed";
 	public static final String KEY_LAST_DAILY	= "last_daily";
 	public static final String KEY_INTRO		= "intro";
@@ -244,12 +247,26 @@ public class SPDSettings extends GameSettings {
 		return getInt( KEY_LAST_CLASS, 0, 0, 3 );
 	}
 	
-	public static void challenges( int value ) {
-		put( KEY_CHALLENGES, value );
+	public static void challenges( Set<Integer> value ) {
+		for (Challenge ch : Challenges.challenges ) {
+			put( KEY_CHALLENGES + ch.getId(), false );
+		}
+		
+		if (value == null) { return; }
+		for (Integer chId : value) {
+			put( KEY_CHALLENGES + Challenges.challenges.get(chId).getId(), true );
+		}
 	}
 	
-	public static int challenges() {
-		return getInt( KEY_CHALLENGES, 0, 0, Challenges.MAX_VALUE );
+	public static ArrayList<Challenge> challenges() {
+		ArrayList<Challenge> result = new ArrayList<>();
+		for (Challenge ch : Challenges.challenges ) {
+			String id = ch.getId();
+			if (getBoolean(KEY_CHALLENGES + id, false)) {
+				result.add(ch);
+			}
+		}
+		return result;
 	}
 
 	public static void customSeed( String value ){

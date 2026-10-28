@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
+import com.shatteredpixel.shatteredpixeldungeon.Challenges.Challenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
@@ -260,7 +261,7 @@ public enum Rankings {
 	public static final String STATS        = "stats";
 	public static final String BADGES       = "badges";
 	public static final String HANDLERS     = "handlers";
-	public static final String CHALLENGES   = "challenges";
+	public static final String CHALLENGES   = "challenges_";
 	public static final String GAME_VERSION = "game_version";
 	public static final String SEED         = "seed";
 	public static final String CUSTOM_SEED	= "custom_seed";
@@ -330,7 +331,9 @@ public enum Rankings {
 		belongings.backpack.items = allItems;
 		
 		//save challenges
-		rec.gameData.put( CHALLENGES, Dungeon.challenges );
+		for (Challenge ch : Dungeon.challenges) {
+			rec.gameData.put( CHALLENGES + ch.getId(), true );
+		}
 
 		rec.gameData.put( GAME_VERSION, Dungeon.initialVersion );
 
@@ -366,7 +369,11 @@ public enum Rankings {
 
 		Statistics.restoreFromBundle(data.getBundle(STATS));
 		
-		Dungeon.challenges = data.getInt(CHALLENGES);
+		for (Challenge ch : Challenges.challenges) {
+			if (data.getBoolean(CHALLENGES + ch.getId())) {
+				Dungeon.challenges.add(ch);
+			}
+		}
 
 		Dungeon.initialVersion = data.getInt(GAME_VERSION);
 
