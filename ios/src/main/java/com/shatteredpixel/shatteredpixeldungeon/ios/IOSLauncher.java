@@ -33,8 +33,8 @@ import com.badlogic.gdx.graphics.glutils.HdpiMode;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.services.news.News;
-import com.shatteredpixel.shatteredpixeldungeon.services.news.NewsImpl;
-import com.shatteredpixel.shatteredpixeldungeon.services.updates.UpdateImpl;
+// import com.shatteredpixel.shatteredpixeldungeon.services.news.NewsImpl;
+// import com.shatteredpixel.shatteredpixeldungeon.services.updates.UpdateImpl;
 import com.shatteredpixel.shatteredpixeldungeon.services.updates.Updates;
 import com.watabou.noosa.Game;
 import com.watabou.utils.FileUtils;
@@ -69,12 +69,12 @@ public class IOSLauncher extends IOSApplication.Delegate {
 			Game.versionCode = 0;
 		}
 
-		if (UpdateImpl.supportsUpdates()) {
-			Updates.service = UpdateImpl.getUpdateService();
-		}
-		if (NewsImpl.supportsNews()) {
-			News.service = NewsImpl.getNewsService();
-		}
+		// if (UpdateImpl.supportsUpdates()) {
+		// 	Updates.service = UpdateImpl.getUpdateService();
+		// }
+		// if (NewsImpl.supportsNews()) {
+		// 	News.service = NewsImpl.getNewsService();
+		// }
 
 		FileUtils.setDefaultFileProperties(Files.FileType.Local, "");
 
