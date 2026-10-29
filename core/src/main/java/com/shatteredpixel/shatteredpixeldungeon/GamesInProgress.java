@@ -21,7 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
-import com.shatteredpixel.shatteredpixeldungeon.Challenges.Challenge;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges.AbstractChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -180,7 +180,7 @@ public class GamesInProgress {
 
 		public int depth;
 		public int version;
-		public ArrayList<Challenge> challenges;
+		public ArrayList<AbstractChallenge> challenges;
 
 		public long seed;
 		public String customSeed;

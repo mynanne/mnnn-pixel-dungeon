@@ -21,7 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
-import com.shatteredpixel.shatteredpixeldungeon.Challenges.Challenge;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges.AbstractChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -248,7 +248,7 @@ public class SPDSettings extends GameSettings {
 	}
 	
 	public static void challenges( Set<Integer> value ) {
-		for (Challenge ch : Challenges.challenges ) {
+		for (AbstractChallenge ch : Challenges.challenges ) {
 			put( KEY_CHALLENGES + ch.getId(), false );
 		}
 		
@@ -258,9 +258,9 @@ public class SPDSettings extends GameSettings {
 		}
 	}
 	
-	public static ArrayList<Challenge> challenges() {
-		ArrayList<Challenge> result = new ArrayList<>();
-		for (Challenge ch : Challenges.challenges ) {
+	public static ArrayList<AbstractChallenge> challenges() {
+		ArrayList<AbstractChallenge> result = new ArrayList<>();
+		for (AbstractChallenge ch : Challenges.challenges ) {
 			String id = ch.getId();
 			if (getBoolean(KEY_CHALLENGES + id, false)) {
 				result.add(ch);

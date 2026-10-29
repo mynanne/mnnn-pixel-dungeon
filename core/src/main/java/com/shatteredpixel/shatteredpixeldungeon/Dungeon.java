@@ -21,7 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
-import com.shatteredpixel.shatteredpixeldungeon.Challenges.Challenge;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges.AbstractChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
@@ -180,7 +180,7 @@ public class Dungeon {
 
 	}
 
-	public static ArrayList<Challenge> challenges;
+	public static ArrayList<AbstractChallenge> challenges;
 	public static float mobsToChampion;
 
 	public static Hero hero;
@@ -287,7 +287,7 @@ public class Dungeon {
 		GamesInProgress.selectedClass.initHero( hero );
 	}
 
-	public static boolean isChallenged( Challenge challengeId ) {
+	public static boolean isChallenged( AbstractChallenge challengeId ) {
 		return challenges.contains(challengeId);
 	}
 
@@ -634,7 +634,7 @@ public class Dungeon {
 			bundle.put( DAILY_REPLAY, dailyReplay );
 			bundle.put( LAST_PLAYED, lastPlayed = Game.realTime);
 
-			for (Challenge challenge : challenges) {
+			for (AbstractChallenge challenge : challenges) {
 				bundle.put(CHALLENGES + challenge.getId(), true);
 			}
 
@@ -744,7 +744,7 @@ public class Dungeon {
 		QuickSlotButton.reset();
 		Toolbar.swappedQuickslots = false;
 
-		for (Challenge ch : Challenges.challenges) {
+		for (AbstractChallenge ch : Challenges.challenges) {
 			if (bundle.getBoolean(CHALLENGES + ch.getId())) {
 				Dungeon.challenges.add(ch);
 			}
@@ -869,7 +869,7 @@ public class Dungeon {
 		info.depth = bundle.getInt( DEPTH );
 		info.version = bundle.getInt( VERSION );
 
-		for (Challenge ch : Challenges.challenges) {
+		for (AbstractChallenge ch : Challenges.challenges) {
 			if (bundle.getBoolean(CHALLENGES + ch.getId())) {
 				info.challenges.add(ch);
 			}

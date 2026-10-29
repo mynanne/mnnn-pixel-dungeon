@@ -26,11 +26,8 @@ import java.util.ArrayList;
 import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 
-// import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
-// import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-
 public class Challenges {
-	static abstract public class Challenge {
+	static abstract public class AbstractChallenge {
 		private String id;
 		private String name;
 
@@ -43,13 +40,13 @@ public class Challenges {
 		public void setName(String name) { this.name = name; }
 		
 	}
-	static public final ArrayList<Challenge> challenges = new ArrayList<>();
+	static public final ArrayList<AbstractChallenge> challenges = new ArrayList<>();
 
 	public static int activeChallenges(){
 		return activeChallenges(Dungeon.challenges);
 	}
 
-	public static int activeChallenges(ArrayList<Challenge> values){
+	public static int activeChallenges(ArrayList<AbstractChallenge> values){
 		return values.size();
 	}
 
@@ -64,8 +61,8 @@ public class Challenges {
 	}
 
 	//@TODO: 나중에 사라져야 할 것
-	static public Challenge findChallenge( String id ) {
-		for (Challenge ch : challenges) {
+	static public AbstractChallenge findChallenge( String id ) {
+		for (AbstractChallenge ch : challenges) {
 			if (ch.getId().equals(id)) {
 				return ch;
 			}

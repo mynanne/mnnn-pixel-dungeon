@@ -24,7 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.windows;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges.Challenge;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges.AbstractChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.QuickSlot;
 import com.shatteredpixel.shatteredpixeldungeon.Rankings;
@@ -475,7 +475,7 @@ public class WndRanking extends WndTabbed {
 
 			for (int i=0; i < Challenges.challenges.size(); i++) {
 
-				final Challenge challenge = Challenges.challenges.get(i);
+				final AbstractChallenge challenge = Challenges.challenges.get(i);
 
 				CheckBox cb = new CheckBox( Messages.titleCase(Messages.get(Challenges.class, challenge.getId())) );
 				cb.checked( Dungeon.challenges.contains(challenge) );

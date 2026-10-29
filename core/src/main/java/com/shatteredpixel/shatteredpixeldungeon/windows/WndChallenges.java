@@ -22,7 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges.Challenge;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges.AbstractChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -47,7 +47,7 @@ public class WndChallenges extends Window {
 	private boolean editable;
 	private ArrayList<CheckBox> boxes;
 
-	public WndChallenges( ArrayList<Challenge> checked, boolean editable ) {
+	public WndChallenges( ArrayList<AbstractChallenge> checked, boolean editable ) {
 
 		super();
 
@@ -66,7 +66,7 @@ public class WndChallenges extends Window {
 
 		float pos = TTL_HEIGHT;
 		for (int i = 0; i < Challenges.challenges.size(); i++) {
-			Challenge challenge = Challenges.challenges.get(i);
+			AbstractChallenge challenge = Challenges.challenges.get(i);
 						
 			CheckBox cb = new CheckBox( Messages.titleCase(Messages.get(Challenges.class, challenge.getId())) );
 			cb.checked( checked.contains(challenge) );

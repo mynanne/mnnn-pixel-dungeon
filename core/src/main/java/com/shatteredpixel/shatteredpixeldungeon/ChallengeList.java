@@ -1,8 +1,8 @@
 package com.shatteredpixel.shatteredpixeldungeon;
 
-import com.shatteredpixel.shatteredpixeldungeon.Challenges.Challenge;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges.AbstractChallenge;
 
-class NO_FOOD extends Challenge {
+class NO_FOOD extends AbstractChallenge {
 	{
 		setId("NO_FOOD");
 		setName("no_food");
@@ -12,7 +12,7 @@ class NO_FOOD extends Challenge {
 	}
 }
 
-class NO_ARMOR extends Challenge {
+class NO_ARMOR extends AbstractChallenge {
 	{
 		setId("NO_ARMOR");
 		setName("no_armor");
@@ -22,7 +22,7 @@ class NO_ARMOR extends Challenge {
 	}
 }
 
-class NO_HEALING extends Challenge {
+class NO_HEALING extends AbstractChallenge {
 	{
 		setId("NO_HEALING");
 		setName("no_healing");
@@ -32,7 +32,7 @@ class NO_HEALING extends Challenge {
 	}
 }
 
-class NO_HERBALISM extends Challenge {
+class NO_HERBALISM extends AbstractChallenge {
 	{
 		setId("NO_HERBALISM");
 		setName("no_herbalism");
@@ -42,7 +42,7 @@ class NO_HERBALISM extends Challenge {
 	}
 }
 
-class SWARM_INTELLIGENCE extends Challenge {
+class SWARM_INTELLIGENCE extends AbstractChallenge {
 	{
 		setId("SWARM_INTELLIGENCE");
 		setName("swarm_intelligence");
@@ -52,7 +52,7 @@ class SWARM_INTELLIGENCE extends Challenge {
 	}
 }
 
-class DARKNESS extends Challenge {
+class DARKNESS extends AbstractChallenge {
 	{
 		setId("DARKNESS");
 		setName("darkness");
@@ -62,7 +62,7 @@ class DARKNESS extends Challenge {
 	}
 }
 
-class NO_SCROLLS extends Challenge {
+class NO_SCROLLS extends AbstractChallenge {
 	{
 		setId("NO_SCROLLS");
 		setName("no_scrolls");
@@ -72,7 +72,7 @@ class NO_SCROLLS extends Challenge {
 	}
 }
 
-class CHAMPION_ENEMIES extends Challenge {
+class CHAMPION_ENEMIES extends AbstractChallenge {
 	{
 		setId("CHAMPION_ENEMIES");
 		setName("champion_enemies");
@@ -82,7 +82,7 @@ class CHAMPION_ENEMIES extends Challenge {
 	}
 }
 
-class STRONGER_BOSSES extends Challenge {
+class STRONGER_BOSSES extends AbstractChallenge {
 	{
 		setId("STRONGER_BOSSES");
 		setName("stronger_bosses");

@@ -21,7 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
-import com.shatteredpixel.shatteredpixeldungeon.Challenges.Challenge;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges.AbstractChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
@@ -331,7 +331,7 @@ public enum Rankings {
 		belongings.backpack.items = allItems;
 		
 		//save challenges
-		for (Challenge ch : Dungeon.challenges) {
+		for (AbstractChallenge ch : Dungeon.challenges) {
 			rec.gameData.put( CHALLENGES + ch.getId(), true );
 		}
 
@@ -369,7 +369,7 @@ public enum Rankings {
 
 		Statistics.restoreFromBundle(data.getBundle(STATS));
 		
-		for (Challenge ch : Challenges.challenges) {
+		for (AbstractChallenge ch : Challenges.challenges) {
 			if (data.getBoolean(CHALLENGES + ch.getId())) {
 				Dungeon.challenges.add(ch);
 			}
